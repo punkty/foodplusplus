@@ -14,7 +14,7 @@ class UserManager(models.Manager):
 
         pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
 
-        user = self.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'], email=request.POST['email'], password=pw_hash)
+        user = self.create(name=request.POST['name'], email=request.POST['email'], password=pw_hash, user_type=request.POST['user_type'], donations=0)
 
         return (True, user)
 
@@ -33,12 +33,14 @@ class UserManager(models.Manager):
     def validate_inputs(self, request):
         errors = []
 
-        if not request.POST['first_name']:
-            errors.append('First name cannot be blank.')
+        if not request.POST['name']:
+            errors.append('Please enter a name.')
         if not request.POST['email']:
             errors.append('Please enter an email.')
         elif not EMAIL_REGEX.match(request.POST['email']):
             errors.append('Invalid email.')
+        if 'user_type' not in request.POST:
+            errors.append('Please select an account type.')
         if len(request.POST['password']) < 8:
             errors.append('Password must be at least 8 characters.')
         if request.POST['password'] != request.POST['confirm']:
@@ -47,10 +49,11 @@ class UserManager(models.Manager):
         return errors
 
 class User(models.Model):
-    first_name = models.CharField(max_length = 50)
-    last_name = models.CharField(max_length = 50)
+    name = models.CharField(max_length = 50)
     email = models.CharField(max_length = 50)
     password = models.CharField(max_length = 255)
+    user_type = models.IntegerField()
+    donations = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
