@@ -35,7 +35,8 @@ def print_errors(request, error_list):
 def log_user_in(request, user):
     request.session['user'] = {
         'user_id': user.id,
-        'first_name': user.first_name
+        'user_type': user.user_type,
+        'name': user.name
     }
 
     return redirect('login:success')
@@ -47,4 +48,4 @@ def logout(request):
     return redirect('login:index')
 
 def success(request):
-    return render(request, 'login/success.html')
+    return render(request, 'login/success.html', context)
