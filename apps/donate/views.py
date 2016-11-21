@@ -113,6 +113,20 @@ def show_all(request):
     if not session_check(request):
         return redirect('login:index')
 
+    if int(request.session['user']['user_type']) == 1:
+        context = {
+            'foodbank_items': Item.objects.filter(foodbank__id=request.session['user']['user_id'])
+        }
+        return render(request, 'donate/show_all_foodbank.html', context)
+
+    elif int(request.session['user']['user_type']) == 0:
+        context = {
+            'all_foodbanks': User.objects.filter(user_type=1),
+            'all_items': Item.objects.filter(donor__isnull=True),
+            'foodbanks_with_requests': User.objects.filter(item_requests__isnull=False).exclude(user_type=0)
+        }
+        return render(request, 'donate/show_all_donor.html', context)
+
 def logout(request):
     request.session.clear()
 

@@ -6,11 +6,11 @@ from django.db import models
 class ItemManager(models.Manager):
     def add_offer(self, request):
         user = User.objects.get(id=request.session['user']['user_id'])
-        Item.objects.create(name=request.POST['name'], description=request.POST['description'], donor=user)
+        Item.objects.create(name=request.POST['name'], description=request.POST['description'], donor=user,owner=user)
     
     def add_request(self, request):
         user = User.objects.get(id=request.session['user']['user_id'])
-        Item.objects.create(name=request.POST['name'], description=request.POST['description'], foodbank=user) 
+        Item.objects.create(name=request.POST['name'], description=request.POST['description'], foodbank=user,owner=user) 
     
     def destroy_item(self, request, item_id):
         Item.objects.get(id=item_id).delete()
@@ -37,8 +37,12 @@ class ItemManager(models.Manager):
 
     def cancel(self, request, item_id):
         item = Item.objects.get(id=item_id)
-        item.foodbank = None
-        item.save()
+        if item.owner.user_type == 0:
+            item.foodbank = None
+            item.save()
+        elif item.owner.user_type == 1:
+            item.donor = None
+            item.save() 
 
 class Item(models.Model):
     name = models.CharField(max_length=50)
@@ -46,6 +50,7 @@ class Item(models.Model):
     foodbank = models.ForeignKey(User, related_name='item_requests', null=True)
     donor = models.ForeignKey(User, related_name='item_offers', null=True)
     active = models.BooleanField(default=True)
+    owner = models.ForeignKey(User, related_name='created')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
