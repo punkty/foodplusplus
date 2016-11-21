@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>food++ | {{ foodbank.name }}</title>
+</head>
+<body>
+    <h1>food++ | {{ foodbank.name }}</h1>
+    <a href="{% url 'donate:logout' %}">Logout</a>
+    <table>
+        <h3>{{ foodbank.name }} needs these items:</h3>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in requested_items %}
+            {% if not item.donor %} <!-- Items without a donor FK (not fulfilled) -->
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td><a href="#">Fulfill</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>food++ | {{ donor.name }}</title>
+</head>
+<body>
+    <h1>food++ | {{ donor.name }}</h1>
+    <a href="{% url 'donate:logout' %}">Logout</a>
+    <h3>Donations: {{ donor.donations }}</h3>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in donor_items %}
+            {% if not item.foodbank %} <!-- Items without a FB FK (not claimed) -->
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    <td><a href="#">Claim</a></td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+    <h3>{{ donor.name }}'s Donations</h3>
+    <ul>     
+        {% for item in donor_items %}
+            {% if not item.active %} <!-- Inactive (completed) items -->
+                <li>{{ item.name }} to {{ item.item_requests.name }}</li>
+            {% endif %}
+        {% endfor %} 
+    </ul>
+</body>
+</html>

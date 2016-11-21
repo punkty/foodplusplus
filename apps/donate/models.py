@@ -12,15 +12,16 @@ class ItemManager(models.Manager):
         user = User.objects.get(id=request.session['user']['user_id'])
         Item.objects.create(name=request.POST['name'], description=request.POST['description'], foodbank=user) 
     
-        
+    def destroy_item(self, request, item_id):
+        Item.objects.get(id=item_id).delete()
         
 
 
 class Item(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)
-    foodbank = models.ForeignKey(User,related_name='item_requests', null=True)
-    donor = models.ForeignKey(User,related_name='item_offers', null=True)
+    foodbank = models.ForeignKey(User, related_name='item_requests', null=True)
+    donor = models.ForeignKey(User, related_name='item_offers', null=True)
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -24,7 +24,7 @@
             {% elif item.active and item.donor %}
             <td>Accepted</td>
             {% endif %}
-            <td><a href="#">Remove?</a></td>
+            <td><a href="{% url 'donate:destroy_item' item.id %}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>
