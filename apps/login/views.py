@@ -10,7 +10,7 @@ def session_check(request):
 
 def index(request):
     if session_check(request):
-        return redirect('login:success')
+        return redirect('donate:index')
         # ^^ REDIRECT TO APP ^^
     else:
         return render(request,'login/index.html')
@@ -39,7 +39,7 @@ def log_user_in(request, user):
         'name': user.name
     }
 
-    return redirect('login:success')
+    return redirect('donate:index')
     # ^^ REDIRECT TO APP ^^
 
 def logout(request):

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>food++ | {{ request.session.user.name }}</title>
+</head>
+<body>
+    <h1>food++ | {{ request.session.user.name }}</h1>
+    <a href="{% url 'donate:logout' %}">Logout</a>
+    <h3>{{ request.session.user.name }}'s Items</h3>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in foodbank_items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            {% if item.active and not item.donor %}
+            <td>Requested</td>
+            {% elif item.active and item.donor %}
+            <td>Accepted</td>
+            {% endif %}
+            <td><a href="#">Remove?</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3>Donors Near You</h3>
+    <ul>
+        <li></li>
+    </ul>
+    <a href="#">View All</a>
+    <h3>Request an item</h3>
+    <form action="{% url 'donate:add_item' %}" method="POST">
+        {% csrf_token %}
+        <p>Name: <input type="text" name="name"></p>
+        <p>Description: <input type="text" name="description"></p>
+        <input type="submit" value="Request">
+    </form>
+</body>
+</html>
