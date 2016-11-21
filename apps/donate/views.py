@@ -52,15 +52,27 @@ def fulfill(request, item_id):
     if not session_check(request):
         return redirect('login:index')
 
+    Item.objects.fulfill(request, item_id)
+
+    return redirect('donate:index')
+
 def claim(request, item_id):
     # updates an item's foodbank foreign key
     if not session_check(request):
         return redirect('login:index')
 
-def recieved(request, item_id):
+    Item.objects.claim(request, item_id)
+
+    return redirect('donate:index')
+
+def received(request, item_id):
     # sets item's active = 0, adds to donations count for donor
     if not session_check(request):
         return redirect('login:index')
+
+    Item.objects.received(request, item_id)
+
+    return redirect('donate:index')
 
 def cancel(request, item_id):
     # allows foodbank to reject a fulfillment, severing donor FK

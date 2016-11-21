@@ -15,7 +15,25 @@ class ItemManager(models.Manager):
     def destroy_item(self, request, item_id):
         Item.objects.get(id=item_id).delete()
         
+    def fulfill(self, request, item_id):
+        user = User.objects.get(id=request.session['user']['user_id'])
+        item = Item.objects.get(id=item_id)
+        item.donor = user
+        item.save()
 
+    def claim(self, request, item_id):
+        user = User.objects.get(id=request.session['user']['user_id'])
+        item = Item.objects.get(id=item_id)
+        item.foodbank = user
+        item.save()
+
+    def received(self, request, item_id):
+        item = Item.objects.get(id=item_id)
+        item.active = False
+        user = User.objects.get(id=item.donor.id)
+        user.donations += 1
+        user.save()
+        item.save()
 
 class Item(models.Model):
     name = models.CharField(max_length=50)

@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
-                    <td><a href="#">Fulfill</a></td>
+                    <td><a href="{% url 'donate:fulfill' item.id %}">Fulfill</a></td>
                 </tr>
             {% endif %}
         {% endfor %}

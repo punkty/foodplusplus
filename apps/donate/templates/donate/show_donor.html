@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
-                    <td><a href="#">Claim</a></td>
+                    <td><a href="{% url 'donate:claim' item.id %}">Claim</a></td>
                 </tr>
             {% endif %}
         {% endfor %}
@@ -28,7 +28,7 @@
     <ul>     
         {% for item in donor_items %}
             {% if not item.active %} <!-- Inactive (completed) items -->
-                <li>{{ item.name }} to {{ item.item_requests.name }}</li>
+                <li>{{ item.name }} to {{ item.foodbank.name }}</li>
             {% endif %}
         {% endfor %} 
     </ul>

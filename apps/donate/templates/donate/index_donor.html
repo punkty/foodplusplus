@@ -19,10 +19,10 @@
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.description }}</td>
-            {% if item.active and item.donor %}
-            <td>Available</td>
-            {% elif item.active and item.foodbank %}
+            {% if item.active and item.foodbank %}
             <td>To Be Delivered</td>
+            {% elif item.active and not item.foodbank %}
+            <td>Available</td>
             {% endif %}
             <td><a href="{% url 'donate:destroy_item' item.id %}">Delete</a></td>
         </tr>
