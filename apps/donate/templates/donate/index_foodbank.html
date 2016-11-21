@@ -23,7 +23,7 @@
                     {% if not item.donor %}
                     <td>Requested</td>
                     {% elif item.donor %}
-                    <td>Out For Delivery <a href="{% url 'donate:received' item.id %}">Item Delivered</a></td>
+                    <td>Out For Delivery <a href="{% url 'donate:received' item.id %}">Item Delivered</a> <a href="{% url 'donate:cancel' item.id %}">Cancel Delivery</a></td>
                     {% endif %}
                     <td><a href="{% url 'donate:destroy_item' item.id %}">Delete</a></td>
                 </tr>

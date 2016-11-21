@@ -35,6 +35,11 @@ class ItemManager(models.Manager):
         user.save()
         item.save()
 
+    def cancel(self, request, item_id):
+        item = Item.objects.get(id=item_id)
+        item.foodbank = None
+        item.save()
+
 class Item(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=255)

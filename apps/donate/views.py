@@ -79,6 +79,10 @@ def cancel(request, item_id):
     if not session_check(request):
         return redirect('login:index')
 
+    Item.objects.cancel(request, item_id)
+
+    return redirect('donate:index')
+
 def show_user(request, user_id):
     #renders a user's page
     if not session_check(request):
