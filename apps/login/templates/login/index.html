@@ -18,7 +18,7 @@
             <input type="submit" name="submit" value="Log In">
         </form><!-- Login -->
         <h2>Register</h2>
-        <form action="{% url 'login:login_reg' %}" method="post">
+        <form action="{% url 'login:login_reg' %}" method="POST">
             {% csrf_token %}
             <p>Name: <input type="text" name="name"></p>
             <p>Email: <input type="text" name="email"></p>

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from ..login.models import User
 from .models import Item
 
@@ -13,13 +13,13 @@ def index(request):
     if not session_check(request):
         return redirect('login:index')
 
-    if request.session['user']['user_type'] == 1:
+    if int(request.session['user']['user_type']) == 1:
         context = {
             'foodbank_items': Item.objects.filter(foodbank__id=request.session['user']['user_id'])
         }
         return render(request, 'donate/index_foodbank.html', context)
 
-    elif request.session['user']['user_type'] == 0:
+    elif int(request.session['user']['user_type']) == 0:
         context = {
             'donor_items': Item.objects.filter(donor__id=request.session['user']['user_id'])
         }
