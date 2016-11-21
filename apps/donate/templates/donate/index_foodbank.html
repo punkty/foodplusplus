@@ -38,7 +38,7 @@
     <h3>Past Donations to {{ request.session.user.name }}</h3>
     <ul>
         {% for item in foodbank_items %}
-            {% if not foodbank_items.active %}
+            {% if not item.active %}
                 <li>{{ item.name }} from {{ item.donor.name }}</li>
             {% endif %}
         {% endfor %}

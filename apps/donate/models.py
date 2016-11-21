@@ -10,7 +10,10 @@ class ItemManager(models.Manager):
     
     def add_request(self, request):
         user = User.objects.get(id=request.session['user']['user_id'])
-        Item.objects.create(name=request.POST['name'], description=request.POST['description'], foodbank=user,owner=user) 
+        item = Item.objects.create(name=request.POST['name'], description=request.POST['description'], foodbank=user,owner=user)
+        print "*"*80
+        print item.name
+        print item.owner.name
     
     def destroy_item(self, request, item_id):
         Item.objects.get(id=item_id).delete()

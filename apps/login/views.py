@@ -38,14 +38,11 @@ def print_errors(request, error_list):
         messages.add_message(request, messages.INFO, error)
 
 def log_user_in(request, user):
-    print '*'*80
-    print 'oh hai'
     request.session['user'] = {
         'user_id': user.id,
         'user_type': user.user_type,
         'name': user.name
     }
-    print request.session['user']
     return redirect('donate:index')
     # ^^ REDIRECT TO APP ^^
 

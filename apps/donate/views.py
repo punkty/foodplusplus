@@ -30,10 +30,10 @@ def add_item(request):
     if not session_check(request):
         return redirect('login:index')
 
-    if request.session['user']['user_type'] == 1: # item is a request if you are a foodbank
+    if int(request.session['user']['user_type']) == 1: # item is a request if you are a foodbank
         Item.objects.add_request(request)
 
-    elif request.session['user']['user_type'] == 0: # item is an offer if you are a donor
+    elif int(request.session['user']['user_type']) == 0: # item is an offer if you are a donor
         Item.objects.add_offer(request)
     
     return redirect('donate:index')
