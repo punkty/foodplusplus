@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Count 
 from models import User
 
 def session_check(request):
@@ -12,8 +13,12 @@ def index(request):
     if session_check(request):
         return redirect('donate:index')
         # ^^ REDIRECT TO APP ^^
-    else:
-        return render(request,'login/index.html')
+    
+    context = {
+        'top_donors': User.objects.filter(user_type=0).order_by('-donations')[:5]
+    }
+
+    return render(request,'login/index.html', context)
 
 def login_reg(request):
     if request.POST['action'] == 'register':
@@ -51,3 +56,9 @@ def logout(request):
 
 def success(request):
     return render(request, 'login/success.html', context)
+
+def donate_hack(request):
+    user = User.objects.get(id=request.session['user']['user_id'])
+    user.donations += 1
+    user.save()
+    return redirect('donate:index')
