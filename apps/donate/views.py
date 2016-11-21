@@ -39,17 +39,17 @@ def add_item(request):
     return redirect('donate:index')
 
 def fulfill(request, item_id):
-    #updates a donor foreign key to item
+    # updates item's donor foreign key
     if not session_check(request):
         return redirect('login:index')
 
 def claim(request, item_id):
-    # allows a foodbank to claim offered items
+    # updates an item's foodbank foreign key
     if not session_check(request):
         return redirect('login:index')
 
 def recieved(request, item_id):
-    #updates item's active state and completes donation
+    # sets item's active = 0, adds to donations count for donor
     if not session_check(request):
         return redirect('login:index')
 
