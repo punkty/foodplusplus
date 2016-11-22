@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>food++ | {{ foodbank.name }}</h1>
+    <a href="{% url 'donate:index' %}">Home</a>
     <a href="{% url 'donate:logout' %}">Logout</a>
     <table>
         <h3>{{ foodbank.name }} needs these items:</h3>
@@ -24,5 +25,9 @@
             {% endif %}
         {% endfor %}
     </table>
+    <iframe src="//www.google.com/maps/embed/v1/place?q={{ foodbank.name }},
+        &zoom=17
+        &key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8">
+    </iframe>
 </body>
 </html>

@@ -45,7 +45,7 @@ class ItemManager(models.Manager):
             item.save()
         elif item.owner.user_type == 1:
             item.donor = None
-            item.save() 
+            item.save()
 
 class Item(models.Model):
     name = models.CharField(max_length=50)
