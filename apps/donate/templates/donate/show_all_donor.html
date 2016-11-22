@@ -18,8 +18,8 @@
     <h2>Foodbanks requesting items</h2>
     <ul>
         <!-- all foodbank names that have requested items -->
-        {% for foodbank in foodbanks_with_requests %}
-        <li><a href="{% url 'donate:show_user' foodbank.id %}">{{ foodbank.name }}</a></li>
+        {% for item in requested_items %}
+        <li><a href="{% url 'donate:show_user' item.foodbank.id %}">{{ item.foodbank.name }}</a></li>
         {% endfor %}
     </ul>
     <h2>All Requested Items</h2>

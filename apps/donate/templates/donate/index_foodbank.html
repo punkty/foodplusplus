@@ -30,11 +30,12 @@
             {% endif %}
         {% endfor %}
     </table>
-    <h3>Donors Near You</h3>
+    <h3>Available Items</h3>
     <ul>
-        <li></li>
+        {% for item in available_items %}
+        <li><a href="{% url 'donate:show_user' item.donor.id %}">{{ item.name }}</a></li>
+        {% endfor %}
     </ul>
-    <a href="#">View All</a>
     <h3>Past Donations to {{ request.session.user.name }}</h3>
     <ul>
         {% for item in foodbank_items %}
