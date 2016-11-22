@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Tahoma;
+}
+body {
+    background-color: #fffef8;
+}
+header {
+    height: 50px;
+    background-color: #4a6a7b;
+    border-bottom: 1px solid #10314a;
+}
+header p {
+    display: inline;
+    vertical-align: middle;
+    color: #fffef8;
+}
+header form {
+    padding-top: 15px;
+    padding-right: 7px;
+    float: right;
+}
+#wrapper {
+    margin: 0 auto;
+    width: 1000px;
+}
+.register_container {
+    display: inline-block;
+    text-align: right;
+}
+.top_donors_container {
+    width: 500px;
+    display: inline-block;
+    vertical-align: top;
+}
+.register_container, .top_donors_container {
+    margin-top: 60px;
+}
+p input[type='radio'] {
+    display: inline-block;
+}
+input[value='Register'] {
+    text-align: right;
+    display: block;
+    margin-left: 220px;
+    margin-top: 20px;
+}

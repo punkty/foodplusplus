@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <title>food++ | Show All Donor Version</title>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'donate/main.css' %}">
 </head>
 <body>
-    <a href="{% url 'donate:index' %}">Home</a>
-    <a href="{% url 'donate:logout' %}">Logout</a>
+    <header>
+        <a href="{% url 'donate:index' %}">Home</a>
+        <a href="{% url 'donate:logout' %}">Logout</a>
+    </header>
     <h2>All Foodbanks</h2>
     <ul>
         <!-- forloop for foodbanks with requests -->
@@ -18,8 +21,8 @@
     <h2>Foodbanks requesting items</h2>
     <ul>
         <!-- all foodbank names that have requested items -->
-        {% for item in requested_items %}
-        <li><a href="{% url 'donate:show_user' item.foodbank.id %}">{{ item.foodbank.name }}</a></li>
+        {% for item in foodbanks_with_requests %}
+        <li><a href="{% url 'donate:show_user' item.id %}">{{ item.name }}</a></li>
         {% endfor %}
     </ul>
     <h2>All Requested Items</h2>

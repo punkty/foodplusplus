@@ -14,7 +14,7 @@ class UserManager(models.Manager):
 
         pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
 
-        user = self.create(name=request.POST['name'], email=request.POST['email'], password=pw_hash, user_type=request.POST['user_type'], donations=0)
+        user = self.create(name=request.POST['name'], email=request.POST['email'], password=pw_hash, user_type=int(request.POST['user_type']), donations=0)
         return (True, user)
 
     def validate_login(self, request):

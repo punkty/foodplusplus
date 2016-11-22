@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>food++ | {{ foodbank.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'donate/main.css' %}">
 </head>
 <body>
+    <header>
+        <a href="{% url 'donate:index' %}">Home</a>
+        <a href="{% url 'donate:logout' %}">Logout</a>
+    </header>
     <h1>food++ | {{ foodbank.name }}</h1>
-    <a href="{% url 'donate:index' %}">Home</a>
-    <a href="{% url 'donate:logout' %}">Logout</a>
     <table>
         <h3>{{ foodbank.name }} needs these items:</h3>
         <tr>
@@ -20,11 +24,19 @@
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
-                    <td><a href="{% url 'donate:fulfill' item.id %}">Fulfill</a></td>
+                    <td><a href="{% url 'donate:fulfill' item.id item.foodbank.id %}">Fulfill</a></td>
                 </tr>
+            {% endif %}
+            {% if not item %}
+                <p>No requested items</p>
             {% endif %}
         {% endfor %}
     </table>
+    {% if messages %}
+        {% for message in messages %}
+            <h5>{{ message }}</h5>
+        {% endfor %}
+    {% endif %}
     <iframe src="//www.google.com/maps/embed/v1/place?q={{ foodbank.name }},
         &zoom=17
         &key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8">

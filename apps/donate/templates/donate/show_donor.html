@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>food++ | {{ donor.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'donate/main.css' %}">
 </head>
 <body>
+    <header>
+        <a href="{% url 'donate:index' %}">Home</a>
+        <a href="{% url 'donate:logout' %}">Logout</a>
+    </header>
     <h1>food++ | {{ donor.name }}</h1>
-    <a href="{% url 'donate:index' %}">Home</a>
-    <a href="{% url 'donate:logout' %}">Logout</a>
     <h3>Donations: {{ donor.donations }}</h3>
     <table>
         <tr>

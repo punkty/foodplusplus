@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from ..login.models import User
 from .models import Item
-from django.db.models import Q
+from django.contrib import messages
 
 def session_check(request):
     if 'user' in request.session:
@@ -14,15 +14,16 @@ def index(request):
     if not session_check(request):
         return redirect('login:index')
 
-    if int(request.session['user']['user_type']) == 1:
+    if request.session['user']['user_type'] == 1:
         context = {
             'foodbank_items': Item.objects.filter(foodbank__id=request.session['user']['user_id']),
             'available_items': Item.objects.filter(foodbank__isnull=True),
         }
         return render(request, 'donate/index_foodbank.html', context)
 
-    elif int(request.session['user']['user_type']) == 0:
+    elif request.session['user']['user_type'] == 0:
         context = {
+            'donation_count': User.objects.get(id=request.session['user']['user_id']),
             'donor_items': Item.objects.filter(donor__id=request.session['user']['user_id'])
         }
         return render(request, 'donate/index_donor.html', context)
@@ -32,11 +33,25 @@ def add_item(request):
     if not session_check(request):
         return redirect('login:index')
 
-    if int(request.session['user']['user_type']) == 1: # item is a request if you are a foodbank
-        Item.objects.add_request(request)
+    if request.session['user']['user_type'] == 1: # item is a request if you are a foodbank
+        result = Item.objects.add_request(request)
 
-    elif int(request.session['user']['user_type']) == 0: # item is an offer if you are a donor
-        Item.objects.add_offer(request)
+        if result: # form validation
+            print_errors(request, result)
+            return redirect('donate:index')
+
+    elif request.session['user']['user_type'] == 0: # item is an offer if you are a donor
+        result = Item.objects.cap_check(request)
+
+        if result: # Active item capacity check
+            print_errors(request, result)
+            return redirect('donate:index')
+
+        result = Item.objects.add_offer(request)
+
+        if result: # form validation
+            print_errors(request, result)
+            return redirect('donate:index')
     
     return redirect('donate:index')
 
@@ -45,18 +60,29 @@ def destroy_item(request, item_id):
     if not session_check(request):
         return redirect('login:index')
 
+    item = Item.objects.get(id=item_id)
+
+    if item.owner.id != request.session['user']['user_id']: # cannot delete items that are not yours
+        return redirect('donate:index')
+
     Item.objects.destroy_item(request, item_id)
 
     return redirect('donate:index')
 
-def fulfill(request, item_id):
+def fulfill(request, item_id, user_id):
     # updates item's donor foreign key
     if not session_check(request):
         return redirect('login:index')
 
+    result = Item.objects.cap_check(request)
+
+    if result: # active item capacity check
+        print_errors(request, result)
+        return redirect('donate:show_user', user_id)
+
     Item.objects.fulfill(request, item_id)
 
-    return redirect('donate:index')
+    return redirect('donate:accepted', item_id)
 
 def claim(request, item_id):
     # updates an item's foodbank foreign key
@@ -92,8 +118,8 @@ def show_user(request, user_id):
 
     user = User.objects.get(id=user_id)
 
-    if user.user_type == 0: # if the user they want to see is a donor and they are a foodbank
-        if request.session['user']['user_type'] == 1:
+    if user.user_type == 0:
+        if request.session['user']['user_type'] == 1: # if the user they want to see is a donor and they are a foodbank
             context = {
                 'donor': User.objects.get(id=user_id),
                 'donor_items': Item.objects.filter(donor__id=user_id)
@@ -111,17 +137,29 @@ def show_user(request, user_id):
     return redirect('donate:index')
 
 def show_all(request):
-    #shows queries on whats available based on user type
+    # shows foodbanks and requested items
     if not session_check(request):
         return redirect('login:index')
 
     context = {
         'all_foodbanks': User.objects.filter(user_type=1),
         'all_items': Item.objects.filter(donor__isnull=True),
-        # 'foodbanks_with_requests': User.objects.filter(item_requests__isnull=True).filter(item_offers__isnull=False).distinct()
-        'requested_items': Item.objects.filter(foodbank__isnull=False).filter(donor__isnull=True).distinct()
+        'foodbanks_with_requests': User.objects.filter(user_type=1).filter(item_requests__donor__isnull=True).distinct()
     }
     return render(request, 'donate/show_all_donor.html', context)
+
+def accepted(request, item_id):
+    if not session_check(request):
+        return redirect('login:index')
+
+    context = {
+        'item': Item.objects.get(id=item_id)
+    }
+    return render(request, 'donate/accepted.html', context)
+
+def print_errors(request, error_list):
+    for error in error_list:
+        messages.add_message(request, messages.INFO, error)
 
 def logout(request):
     request.session.clear()

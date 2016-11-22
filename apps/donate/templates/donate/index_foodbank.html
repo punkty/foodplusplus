@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>food++ | {{ request.session.user.name }}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'donate/main.css' %}">
 </head>
 <body>
+    <header>
+        <a href="{% url 'donate:logout' %}">Logout</a>
+    </header>
     <h1>food++ | {{ request.session.user.name }}</h1>
-    <a href="{% url 'donate:logout' %}">Logout</a>
     <h3>{{ request.session.user.name }}'s Items</h3>
     <table>
         <tr>
@@ -23,9 +27,20 @@
                     {% if not item.donor %}
                     <td>Requested</td>
                     {% elif item.donor %}
-                    <td>Out For Delivery <a href="{% url 'donate:received' item.id %}">Item Delivered</a> <a href="{% url 'donate:cancel' item.id %}">Cancel Delivery</a></td>
+                    <td>Out for delivery from {{ item.donor.name }}</td>
                     {% endif %}
-                    <td><a href="{% url 'donate:destroy_item' item.id %}">Delete</a></td>
+                    {% if item.owner.id == request.session.user.user_id %}
+                        <td>
+                            <a href="{% url 'donate:received' item.id %}">Item Delivered</a> 
+                            <a href="{% url 'donate:cancel' item.id %}">Cancel Delivery</a>
+                            <a href="{% url 'donate:destroy_item' item.id %}">Delete</a>
+                        </td>
+                    {% elif item.donor %}
+                        <td>
+                            <a href="{% url 'donate:received' item.id %}">Item Delivered</a> 
+                            <a href="{% url 'donate:cancel' item.id %}">Cancel Delivery</a>
+                        </td>
+                    {% endif %}
                 </tr>
             {% endif %}
         {% endfor %}
@@ -44,7 +59,6 @@
             {% endif %}
         {% endfor %}
     </ul>
-    <a href="#">View All</a>
     <h3>Request an item</h3>
     <form action="{% url 'donate:add_item' %}" method="POST">
         {% csrf_token %}
@@ -52,5 +66,10 @@
         <p>Description: <input type="text" name="description"></p>
         <input type="submit" value="Request">
     </form>
+    {% if messages %}
+        {% for message in messages %}
+            <h5>{{ message }}</h5>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>
