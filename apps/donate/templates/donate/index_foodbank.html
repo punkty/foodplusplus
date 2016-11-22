@@ -27,7 +27,7 @@
                     {% if not item.donor %}
                     <td>Requested</td>
                     {% elif item.donor %}
-                    <td>Out for delivery from {{ item.donor.name }}</td>
+                    <td>Out for delivery from <a href="{% url 'donate:show_user' item.donor.id %}">{{ item.donor.name }}</a></td>
                     {% endif %}
                     {% if item.owner.id == request.session.user.user_id %}
                         <td>
@@ -55,7 +55,7 @@
     <ul>
         {% for item in foodbank_items %}
             {% if not item.active %}
-                <li>{{ item.name }} from {{ item.donor.name }}</li>
+                <li>{{ item.name }} from <a href="{% url 'donate:show_user' item.donor.id %}">{{ item.donor.name }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
