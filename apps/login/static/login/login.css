@@ -25,13 +25,30 @@ header form {
     display: inline-block;
     text-align: right;
 }
+.img_filter {
+    background: #ac5239;
+    opacity: .7;
+    height: 335px;
+    width:500px;
+    display: inline-block;
+}
+.img_div {
+  background-image:url('donate.JPG');
+  background-repeat:no-repeat;
+  background-size:100%; 
+  width: 500px;
+  height: 400px;
+  display: inline-block;  
+}
 .top_donors_container {
+    background: #fffef8;
     width: 500px;
     display: inline-block;
     vertical-align: top;
 }
 .register_container, .top_donors_container {
     margin-top: 60px;
+    vertical-align: top;
 }
 .register_container {
     float:right;

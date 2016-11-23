@@ -22,14 +22,18 @@
         </form><!-- Login -->
     </header>
     <div id="container">
-       <div class="top_donors_container">
-           <h3>Top food++ Donors</h3>
-           <ol>
-               {% for donor in top_donors %}
-               <li>{{ donor.name }}: {{ donor.donations }}</li>
-               {% endfor %}
-           </ol>
-           </div><!--  /.top_donors_contatiner -->
+          <div class="img_div">
+          <div class='img_filter'>
+           <div class="top_donors_container">
+             <h3>Top food++ Donors</h3>
+             <ol>
+                 {% for donor in top_donors %}
+                 <li>{{ donor.name }}: {{ donor.donations }}</li>
+                 {% endfor %}
+             </ol>
+             </div><!--  /.top_donors_contatiner -->
+             </div>
+           </div><!--end of img div -->
        <div class="register_container">
             <h2>Register</h2>
             <form action="{% url 'login:login_reg' %}" method="POST">
