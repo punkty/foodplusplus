@@ -26,8 +26,7 @@ header form {
     text-align: right;
 }
 .img_filter {
-    background: #7b83a4;
-    opacity: .7;
+    background-color: rgba(123,131,164, 0.6);
     height: 455px;
     width:680px;
     display: inline-block;
