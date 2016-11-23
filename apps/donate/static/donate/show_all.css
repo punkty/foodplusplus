@@ -1,0 +1,15 @@
+#wrapper {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.triple_container {
+    display: inline-block;
+    width: 300px;
+    vertical-align: top;
+    margin-top: 40px;
+    padding: 10px
+}
+h2 {
+    margin-bottom: 20px;
+}

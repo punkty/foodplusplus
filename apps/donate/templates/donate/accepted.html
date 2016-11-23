@@ -4,19 +4,26 @@
     <meta charset="UTF-8">
     <title>food++ | Thank You!</title>
     {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
+    <link rel="stylesheet" href="{% static 'donate/accepted.css' %}">
 </head>
 <body>
     <header>
-        <a href="{% url 'donate:index' %}">Home</a>
+        <h1>food++ | Thank You!</h1>
+        <a href="{% url 'donate:logout' %}"><button class="headerbutton">Logout</button></a>
+        <a href="{% url 'donate:index' %}"><button class="headerbutton">Home</button></a>
     </header>
+    <div id="container">
     <h1>Thank You!</h1>
     <h3>Your donation to {{ item.foodbank.name }} is almost complete.</h3>
     <p>Please get in contact with your foodbank before you deliver!</p>
     <a href="mailto:{{ item.foodbank.email }}"><button>Send them an email</button></a>
+    <a href="{% url 'donate:index' %}"><button>Home</button></a>
     <iframe src="//www.google.com/maps/embed/v1/place?q={{ item.foodbank.name }},
         &zoom=17
         &key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8">
     </iframe>
+    </div><!-- /#container  -->
 </body>
 </html>

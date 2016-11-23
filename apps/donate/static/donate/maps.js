@@ -27,6 +27,8 @@ function initMap() {
         { title: 'Salvation Army Food Bank', location: { lat: 47.614732, lng: -122.327139 } },
         { title: 'Pike Market Food Bank', location: { lat: 47.610254, lng: -122.3405347 } },
         { title: 'Queen Anne Food Bank', location: { lat: 47.622077, lng: -122.3524414 } },
+        { title: 'Northwest Harvest', location: {lat: 47.605574, lng: -122.326581}},
+        { title: 'Rainier Valley Food Bank', location: {lat: 47.56533, lng: -122.288918}},
     ];
     var largeInfowindow = new google.maps.InfoWindow();
     // Style the markers a bit. This will be our listing marker icon.
