@@ -6,12 +6,14 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'donate/foodbank_dash.css' %}">
 </head>
 <body>
     <header>
-        <a href="{% url 'donate:logout' %}">Logout</a>
+        <h1>food++ | {{ request.session.user.name }}</h1>
+        <a href="{% url 'donate:logout' %}"><button class='headerbutton'>Logout</button></a>
     </header>
-    <h1>food++ | {{ request.session.user.name }}</h1>
+    <div id="container">
     <h3>{{ request.session.user.name }}'s Items</h3>
     <table>
         <tr>
@@ -72,5 +74,6 @@
             <h5>{{ message }}</h5>
         {% endfor %}
     {% endif %}
+    </div><!-- /#container  -->
 </body>
 </html>

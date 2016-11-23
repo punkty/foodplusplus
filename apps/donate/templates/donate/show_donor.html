@@ -6,14 +6,15 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'donate/show_donor.css' %}">
 </head>
 <body>
     <header>
+        <h1>food++ | {{ donor.name }}</h1>
         <a href="{% url 'donate:logout' %}"><button class="headerbutton">Logout</button></a>
         <a href="{% url 'donate:index' %}"><button class="headerbutton">Home</button></a>
     </header>
-    <h1>food++ | {{ donor.name }}</h1>
-    <a href="mailto:{{ donor.email }}"><button>Email {{ donor.name }}</button></a>
+    <div id="container">
     <h3>Donations: {{ donor.donations }}</h3>
     <table>
         <tr>
@@ -39,5 +40,7 @@
             {% endif %}
         {% endfor %} 
     </ul>
+    <a href="mailto:{{ donor.email }}"><button>Email {{ donor.name }}</button></a>
+    </div><!-- /#container  -->
 </body>
 </html>
