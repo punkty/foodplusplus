@@ -13,12 +13,13 @@ h1 {
 
 .sidebar, .rightbar {
     width: 250px;
+    margin-top: 22px;
     display: inline-block;
     vertical-align: top;
 }
 
 .my_items {
-    height: 333px;
+    height: 308px;
     width: 290px;
     overflow-y: auto;
 }
@@ -45,4 +46,11 @@ td,th {
 
 .hideme {
     display: none;
+}
+
+h4 {
+    background: #4a6a7b;
+    width: 300px;
+    color: #fffef8;
+    padding: 3px;
 }
