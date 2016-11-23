@@ -15,7 +15,7 @@
 <body>
     <header>
         <h1>food++ | {{ request.session.user.name }}</h1>
-        <a href="{% url 'donate:logout' %}"><button  class='headerbutton' >Logout</button></a>
+        <a href="{% url 'donate:logout' %}"><button class='headerbutton'>Logout</button></a>
     </header>
     <div id="container">
         <h3>Donations: {{ donation_count.donations }}</h3>
