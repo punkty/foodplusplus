@@ -21,10 +21,6 @@ header form {
     padding-right: 7px;
     float: right;
 }
-#wrapper {
-    margin: 0 auto;
-    width: 1000px;
-}
 .register_container {
     display: inline-block;
     text-align: right;
@@ -36,6 +32,10 @@ header form {
 }
 .register_container, .top_donors_container {
     margin-top: 60px;
+}
+.register_container {
+    float:right;
+    margin-right: 40px;
 }
 p input[type='radio'] {
     display: inline-block;
