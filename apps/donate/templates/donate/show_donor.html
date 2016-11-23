@@ -12,6 +12,7 @@
         <a href="{% url 'donate:logout' %}">Logout</a>
     </header>
     <h1>food++ | {{ donor.name }}</h1>
+    <a href="mailto:{{ donor.email }}"><button>Email {{ donor.name }}</button></a>
     <h3>Donations: {{ donor.donations }}</h3>
     <table>
         <tr>
