@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <title>food++ | {{ foodbank.name }}</title>
     {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
+    <link rel="stylesheet" href="{% static 'donate/show_foodbank.css' %}">
 </head>
 <body>
     <header>
-        <a href="{% url 'donate:index' %}">Home</a>
-        <a href="{% url 'donate:logout' %}">Logout</a>
+        <h1>food++ | {{ foodbank.name }}</h1>
+        <a href="{% url 'donate:logout' %}"><button class="headerbutton">Logout</button></a>
+        <a href="{% url 'donate:index' %}"><button class="headerbutton">Home</button></a>
     </header>
-    <h1>food++ | {{ foodbank.name }}</h1>
+    <div id="container">
     <table>
         <h3>{{ foodbank.name }} needs these items:</h3>
         <tr>
@@ -41,5 +44,6 @@
         &zoom=17
         &key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8">
     </iframe>
+    </div><!-- /#wrapper  -->
 </body>
 </html>

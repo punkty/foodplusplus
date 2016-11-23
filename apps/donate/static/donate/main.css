@@ -12,7 +12,12 @@ header {
     border-bottom: 1px solid #10314a;
     
 }
-
+a {
+    color: #6470a3;
+}
+h2 {
+    font-size: 20px;
+}
 #container {
     width:1000px;
     margin: 0px auto;
@@ -22,7 +27,7 @@ button,input[type='submit'] {
     /* Non-hover attributes */
     padding: 5px;
     border-radius: 2px;
-    background-color: #4a6a7b; /* Background */
+    background-color: #fffef8; /* Background */
     border: none;
     color: white;
     padding: 3px 6px 3px 6px;
@@ -43,14 +48,18 @@ button:hover, input[type='submit']:hover {
     background-color: #10314a;
     color: #fffef8;
 }
-
 .headerbutton {
     float:right;
     margin-top: 15px;
+    background-color: #4a6a7b;
 }
 
 .headerbutton:last-of-type {
     margin-right: 30px;
+}
+
+tr:nth-child(even) {
+   background: #fdf9dd ;
 }
 
 h1 {
@@ -60,5 +69,18 @@ h1 {
     margin-top: 15px;
     color: #fffef8;
     font-weight: normal;
-    
+    font-size: 22px;
+}
+iframe {
+    float: right;
+    vertical-align: top;
+    position: absolute;
+    right: 300px;
+    top: 120px;
+}
+li {
+    margin-bottom: 10px;
+}
+ul {
+    list-style-type: none;
 }

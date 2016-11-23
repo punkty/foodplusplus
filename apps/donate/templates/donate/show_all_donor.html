@@ -5,12 +5,16 @@
     <title>food++ | Show All Donor Version</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
+    <link rel="stylesheet" href="{% static 'donate/show_all.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 <body>
     <header>
-        <a href="{% url 'donate:index' %}">Home</a>
-        <a href="{% url 'donate:logout' %}">Logout</a>
+        <a href="{% url 'donate:logout' %}"><button class="headerbutton">Logout</button></a>
+        <a href="{% url 'donate:index' %}"><button class="headerbutton">Home</button></a>
     </header>
+    <div id="container">
+    <div class="triple_container">
     <h2>All Foodbanks</h2>
     <ul>
         <!-- forloop for foodbanks with requests -->
@@ -18,6 +22,8 @@
         <li><a href="{% url 'donate:show_user' foodbank.id %}">{{ foodbank.name }}</a></li>
         {% endfor %}
     </ul>
+    </div><!--  /.triple_container -->
+    <div class="triple_container">
     <h2>Foodbanks requesting items</h2>
     <ul>
         <!-- all foodbank names that have requested items -->
@@ -25,6 +31,8 @@
         <li><a href="{% url 'donate:show_user' item.id %}">{{ item.name }}</a></li>
         {% endfor %}
     </ul>
+    </div><!--  /.triple_container -->
+    <div class="triple_container">
     <h2>All Requested Items</h2>
     <ul>
         <!-- forloop for all requested items -->
@@ -32,5 +40,7 @@
         <li><a href="{% url 'donate:show_user' item.foodbank.id %}">{{ item.name }}</a></li>
         {% endfor %}
     </ul>
+    </div><!--  /.triple_container -->
+    </div><!-- /#wrapper  -->
 </body>
 </html>

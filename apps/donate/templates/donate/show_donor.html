@@ -5,11 +5,12 @@
     <title>food++ | {{ donor.name }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 <body>
     <header>
-        <a href="{% url 'donate:index' %}">Home</a>
-        <a href="{% url 'donate:logout' %}">Logout</a>
+        <a href="{% url 'donate:logout' %}"><button class="headerbutton">Logout</button></a>
+        <a href="{% url 'donate:index' %}"><button class="headerbutton">Home</button></a>
     </header>
     <h1>food++ | {{ donor.name }}</h1>
     <a href="mailto:{{ donor.email }}"><button>Email {{ donor.name }}</button></a>
