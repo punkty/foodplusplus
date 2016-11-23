@@ -26,23 +26,27 @@ header form {
     text-align: right;
 }
 .img_filter {
-    background: #ac5239;
+    background: #7b83a4;
     opacity: .7;
-    height: 335px;
-    width:500px;
+    height: 455px;
+    width:680px;
     display: inline-block;
 }
 .img_div {
   background-image:url('donate.JPG');
   background-repeat:no-repeat;
   background-size:100%; 
-  width: 500px;
-  height: 400px;
+  width: 680px;
+  height: 500px;
+  margin-left: 30px;
   display: inline-block;  
 }
 .top_donors_container {
+    padding-left: 30px;
+    margin-left: 15px;
+    z-index: 2;
     background: #fffef8;
-    width: 500px;
+    width: 200px;
     display: inline-block;
     vertical-align: top;
 }
@@ -52,7 +56,6 @@ header form {
 }
 .register_container {
     float:right;
-    margin-right: 40px;
 }
 p input[type='radio'] {
     display: inline-block;
