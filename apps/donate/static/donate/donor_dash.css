@@ -1,0 +1,9 @@
+h1 {
+    display: inline-block;
+
+}
+
+.sidebar {
+    width: 200px;
+    display: inline-block;
+}

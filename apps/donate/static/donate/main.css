@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Tahoma;
+    font-family: 'Raleway', sans-serif;
 }
 body {
     background-color: #fffef8;
@@ -10,4 +10,55 @@ header {
     height: 50px;
     background-color: #4a6a7b;
     border-bottom: 1px solid #10314a;
+    
+}
+
+#container {
+    width:1000px;
+    margin: 0px auto;
+}
+
+button,input[type='submit'] {
+    /* Non-hover attributes */
+    padding: 5px;
+    border-radius: 2px;
+    background-color: #4a6a7b; /* Background */
+    border: none;
+    color: white;
+    padding: 3px 6px 3px 6px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    color: #10314a; /* Font color */
+    border: 2px solid #10314a; /* Border */
+}
+button:hover, input[type='submit']:hover {
+    /* Hover Attributes */
+    background-color: #10314a;
+    color: #fffef8;
+}
+
+.headerbutton {
+    float:right;
+    margin-top: 15px;
+}
+
+.headerbutton:last-of-type {
+    margin-right: 30px;
+}
+
+h1 {
+    display: inline-block;
+    text-align: justify;
+    margin-left: 30px;
+    margin-top: 15px;
+    color: #fffef8;
+    font-weight: normal;
+    
 }

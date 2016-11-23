@@ -7,105 +7,106 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'donate/maps.css' %}">
     <script type="text/javascript" src="{% static 'donate/maps.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
+    <link rel="stylesheet" href="{% static 'donate/donor_dash.css' %}">
 </head>
 
 <body>
     <header>
-        <a href="{% url 'donate:logout' %}">Logout</a>
+        <h1>food++ | {{ request.session.user.name }}</h1>
+        <a href="{% url 'donate:logout' %}" class='headerbutton'><button>Logout</button></a>
     </header>
-    <h1>food++ | {{ request.session.user.name }}</h1>
-    <h3>Donations: {{ donation_count.donations }}</h3>
-    <h3>My Items</h3>
-    <table>
-        <tr>
-            <th>Item</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-        {% for item in donor_items %}
-        {% if item.active %}
-        <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.description }}</td>
-            {% if item.active and item.foodbank %}
-            <td>To be delivered to <a href="{% url 'donate:show_user' item.foodbank.id %}">{{ item.foodbank.name }}</a></td>
-            {% elif item.active and not item.foodbank %}
-            <td>Available</td>
+    <div id="container">
+        <h3>Donations: {{ donation_count.donations }}</h3>
+        <div class="sidebar">
+            <h3>My Items</h3>
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+                {% for item in donor_items %}
+                {% if item.active %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td>
+                    {% if item.active and item.foodbank %}
+                    <td>To be delivered to <a href="{% url 'donate:show_user' item.foodbank.id %}">{{ item.foodbank.name }}</a></td>
+                    {% elif item.active and not item.foodbank %}
+                    <td>Available</td>
+                    {% endif %}
+                    {% if item.owner.id == request.session.user.user_id and item.foodbank %}
+                        <td>
+                        <a href="{% url 'donate:cancel' item.id %}">Cancel</a>
+                        <a href="{% url 'donate:destroy_item' item.id %}">Delete</a>
+                        </td>
+                    {% elif item.foodbank %}
+                        <td><a href="{% url 'donate:cancel' item.id %}">Cancel</a></td>
+                    {% elif item.owner.id == request.session.user.user_id %}
+                        <td><a href="{% url 'donate:destroy_item' item.id %}">Delete</a></td>
+                    {% endif %}
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+            <h3>Offer an item</h3>
+            <form action="{% url 'donate:add_item' %}" method="POST">
+                {% csrf_token %}
+                <p>Name: <input type="text" name="name"></p>
+                <p>Description: <input type="text" name="description"></p>
+                <input type="submit" value="Offer">
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <h5>{{ message }}</h5>
+                {% endfor %}
             {% endif %}
-            {% if item.owner.id == request.session.user.user_id and item.foodbank %}
-                <td>
-                <a href="{% url 'donate:cancel' item.id %}">Cancel</a>
-                <a href="{% url 'donate:destroy_item' item.id %}">Delete</a>
-                </td>
-            {% elif item.foodbank %}
-                <td><a href="{% url 'donate:cancel' item.id %}">Cancel</a></td>
-            {% elif item.owner.id == request.session.user.user_id %}
-                <td><a href="{% url 'donate:destroy_item' item.id %}">Delete</a></td>
-            {% endif %}
-        </tr>
-        {% endif %}
-        {% endfor %}
-    </table>
-    <h3>Offer an item</h3>
-    <form action="{% url 'donate:add_item' %}" method="POST">
-        {% csrf_token %}
-        <p>Name: <input type="text" name="name"></p>
-        <p>Description: <input type="text" name="description"></p>
-        <input type="submit" value="Offer">
-    </form>
-    {% if messages %}
-        {% for message in messages %}
-            <h5>{{ message }}</h5>
-        {% endfor %}
-    {% endif %}
-    <a href="{% url 'login:donate_hack' %}"><button>Donate Hack</button></a>
-    <a href="{% url 'donate:show_all' %}"><button>Show All</button></a>
-    <h3>Completed Donations</h3>
-    {% for item in donor_items %}
-    <ul>
-        {% if not item.active %}
-        <li>{{ item.name }} to {{ item.foodbank.name }}</li>
-        {% endif %}
-    </ul>
-    {% endfor %}
-    <div class="container">
-        <div class="options-box">
-            <h1>Food Banks near you</h1>
-            <div>
-                <input id="show-listings" type="button" value="Show Foodbanks">
-                <input id="hide-listings" type="button" value="Hide Foodbanks">
+            <a href="{% url 'login:donate_hack' %}"><button>Donate Hack</button></a>
+            <a href="{% url 'donate:show_all' %}"><button>Show All</button></a>
+
+
+            <h3>Completed Donations</h3>
+            {% for item in donor_items %}
+            <ul>
+                {% if not item.active %}
+                <li>{{ item.name }} to {{ item.foodbank.name }}</li>
+                {% endif %}
+            </ul>
+            {% endfor %}
+            </div><!--  .sidebar -->
+            <div id="map"></div>
+            <div class="options-box">
+                <h2>Food Banks near you</h2>
+                <div>
+                    <input id="show-listings" type="button" value="Show Foodbanks">
+                    <input id="hide-listings" type="button" value="Hide Foodbanks">
+                </div>
+                <div>
+                    <span class="text"> Within </span>
+                    <select id="max-duration">
+                        <option value="10">10 min</option>
+                        <option value="15">15 min</option>
+                        <option value="30">30 min</option>
+                        <option value="60">1 hour</option>
+                    </select>
+                    <select id="mode">
+                        <option value="DRIVING">drive</option>
+                        <option value="WALKING">walk</option>
+                        <option value="BICYCLING">bike</option>
+                        <option value="TRANSIT">transit ride</option>
+                    </select>
+                    <span class="text">of</span>
+                    <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
+                    <input id="search-within-time" type="button" value="Go">
+                </div>
             </div>
-            <hr>
-            <div>
-                <input id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
-                <input id="zoom-to-area" type="button" value="Zoom">
             </div>
-            <hr>
-            <div>
-                <span class="text"> Within </span>
-                <select id="max-duration">
-                    <option value="10">10 min</option>
-                    <option value="15">15 min</option>
-                    <option value="30">30 min</option>
-                    <option value="60">1 hour</option>
-                </select>
-                <select id="mode">
-                    <option value="DRIVING">drive</option>
-                    <option value="WALKING">walk</option>
-                    <option value="BICYCLING">bike</option>
-                    <option value="TRANSIT">transit ride</option>
-                </select>
-                <span class="text">of</span>
-                <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-                <input id="search-within-time" type="button" value="Go">
-            </div>
-        </div>
-        <div id="map"></div>
-    </div>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8&v=3&callback=initMap">
-    </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8&v=3&callback=initMap">
+        </script>
+    </div><!-- /#container  -->
 </body>
 
 </html>
