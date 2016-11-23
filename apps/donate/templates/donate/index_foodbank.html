@@ -32,8 +32,12 @@
                     {% elif item.donor %}
                     <td>Out for delivery from <a href="{% url 'donate:show_user' item.donor.id %}">{{ item.donor.name }}</a></td>
                     {% endif %}
-                    {% if item.owner.id == request.session.user.user_id %}
+                    {% if not item.donor and item.owner.id == request.session.user.user_id %}
                         <td>
+                            <a href="{% url 'donate:destroy_item' item.id %}">Delete</a>
+                        </td>
+                    {% elif item.donor and item.owner.id == request.session.user.user_id %}
+                    <td>
                             <a href="{% url 'donate:received' item.id %}">Item Delivered</a> 
                             <a href="{% url 'donate:cancel' item.id %}">Cancel Delivery</a>
                             <a href="{% url 'donate:destroy_item' item.id %}">Delete</a>
