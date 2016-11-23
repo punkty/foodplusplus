@@ -21,6 +21,7 @@
         <h3>Donations: {{ donation_count.donations }}</h3>
         <div class="sidebar">
             <h3>My Items</h3>
+            <div class="my_items">
             <table>
                 <tr>
                     <th>Item</th>
@@ -52,32 +53,24 @@
                 {% endif %}
                 {% endfor %}
             </table>
-            <h3>Offer an item</h3>
-            <form action="{% url 'donate:add_item' %}" method="POST">
-                {% csrf_token %}
-                <p>Name: <input type="text" name="name"></p>
-                <p>Description: <input type="text" name="description"></p>
-                <input type="submit" value="Offer">
-            </form>
-            {% if messages %}
-                {% for message in messages %}
-                    <h5>{{ message }}</h5>
-                {% endfor %}
-            {% endif %}
-            <a href="{% url 'login:donate_hack' %}"><button>Donate Hack</button></a>
-            <a href="{% url 'donate:show_all' %}"><button>Show All</button></a>
-
-
-            <h3>Completed Donations</h3>
-            {% for item in donor_items %}
-            <ul>
-                {% if not item.active %}
-                <li>{{ item.name }} to {{ item.foodbank.name }}</li>
+            </div><!--  /.my_items -->
+            <div class="offer_item">
+                <h3>Offer an item</h3>
+                <form action="{% url 'donate:add_item' %}" method="POST">
+                    {% csrf_token %}
+                    <p>Name: <input type="text" name="name"></p>
+                    <p>Description: <input type="text" name="description"></p>
+                    <input type="submit" value="Offer">
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <h5>{{ message }}</h5>
+                    {% endfor %}
                 {% endif %}
-            </ul>
-            {% endfor %}
+            </div><!--  /.offer_item -->
             </div><!--  .sidebar -->
             <div id="map"></div>
+            <div class="rightbar">
             <div class="options-box">
                 <h2>Food Banks near you</h2>
                 <div>
@@ -102,8 +95,21 @@
                     <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
                     <input id="search-within-time" type="button" value="Go">
                 </div>
-            </div>
-            </div>
+                <a href="{% url 'login:donate_hack' %}"><button>Donate Hack</button></a>
+                <a href="{% url 'donate:show_all' %}"><button>Show All</button></a>
+            </div><!-- end of option-box -->
+                <div class="completed_list">
+                    <h3>Completed Donations</h3>
+                    {% for item in donor_items %}
+                    <ul>
+                        {% if not item.active %}
+                        <li>{{ item.name }} to {{ item.foodbank.name }}</li>
+                        {% endif %}
+                    </ul>
+                    {% endfor %}
+                    </div><!--  /.rightbar -->
+                </div><!--  /.completed_list -->
+            </div><!-- end of container -->
         <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAW3Wox5scACNQuysCaIK8xbH3oWLTKcn8&v=3&callback=initMap">
         </script>
     </div><!-- /#container  -->

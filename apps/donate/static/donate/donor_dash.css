@@ -1,9 +1,44 @@
+p {
+    font-size: 8pt;
+}
+
+#container{
+    height: 522px;
+}
+
 h1 {
     display: inline-block;
 
 }
 
-.sidebar {
-    width: 200px;
+.sidebar, .rightbar {
+    width: 250px;
     display: inline-block;
+    vertical-align: top;
+}
+
+.my_items {
+    height: 333px;
+    width: 290px;
+    overflow-y: auto;
+}
+
+.offer_item {
+    width: 100%;
+    margin-top: 15px;
+    border: solid #4a6a7b 1px;
+    padding: 20px;
+}
+
+.offer_item p {
+    text-align: right;
+}
+
+input[type='submit'] {
+    margin-left: 210px;
+}
+
+td,th {
+    width: 72px;
+    text-align: center;
 }
