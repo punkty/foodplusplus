@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>food++ | Show All Donor Version</title>
+    <title>food++ | Show All Foodbanks</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'donate/main.css' %}">
     <link rel="stylesheet" href="{% static 'donate/show_all.css' %}">
@@ -10,6 +10,7 @@
 </head>
 <body>
     <header>
+        <h1>food++ | Show All Foodbanks</h1>
         <a href="{% url 'donate:logout' %}"><button class="headerbutton">Logout</button></a>
         <a href="{% url 'donate:index' %}"><button class="headerbutton">Home</button></a>
     </header>

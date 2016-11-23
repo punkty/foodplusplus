@@ -27,17 +27,16 @@ header form {
 }
 .img_filter {
     background-color: rgba(123,131,164, 0.6);
-    height: 455px;
-    width:680px;
+    height: 483px;
+    width:723px;
     display: inline-block;
 }
 .img_div {
   background-image:url('donate.JPG');
   background-repeat:no-repeat;
   background-size:100%; 
-  width: 680px;
-  height: 500px;
-  margin-left: 30px;
+  width: 723px;
+  height: 483px;
   display: inline-block;  
 }
 .top_donors_container {
@@ -55,7 +54,21 @@ header form {
 }
 .register_container {
     float:right;
+    margin-right: 3px; 
 }
+
+.register_container p {
+    margin-bottom: 3px;
+}
+
 p input[type='radio'] {
     display: inline-block;
+}
+
+#container {
+    border-right:solid #7B83A4 1px;
+}
+
+header form input[type='submit']{
+    background: #4a6a7b;
 }

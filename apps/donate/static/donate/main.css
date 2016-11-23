@@ -87,3 +87,11 @@ ul {
 li:nth-child(even) {
    background: #fdf9dd;
 }
+footer {
+    height: 20px;
+    line-height: 20px;
+    width: 100%;
+    background:#7B83A4;
+    text-align: center;
+    color: #fffef8;
+}
