@@ -59,9 +59,3 @@ header form {
 p input[type='radio'] {
     display: inline-block;
 }
-input[value='Register'] {
-    text-align: right;
-    display: block;
-    margin-left: 220px;
-    margin-top: 20px;
-}
