@@ -15,7 +15,7 @@
 <body>
     <header>
         <h1>food++ | {{ request.session.user.name }}</h1>
-        <a href="{% url 'donate:logout' %}" class='headerbutton'><button>Logout</button></a>
+        <a href="{% url 'donate:logout' %}"><button  class='headerbutton' >Logout</button></a>
     </header>
     <div id="container">
         <h3>Donations: {{ donation_count.donations }}</h3>
@@ -73,28 +73,33 @@
             <div class="rightbar">
             <div class="options-box">
                 <h2>Food Banks near you</h2>
-                <div>
-                    <input id="show-listings" type="button" value="Show Foodbanks">
-                    <input id="hide-listings" type="button" value="Hide Foodbanks">
-                </div>
-                <div>
-                    <span class="text"> Within </span>
-                    <select id="max-duration">
-                        <option value="10">10 min</option>
-                        <option value="15">15 min</option>
-                        <option value="30">30 min</option>
-                        <option value="60">1 hour</option>
-                    </select>
-                    <select id="mode">
-                        <option value="DRIVING">drive</option>
-                        <option value="WALKING">walk</option>
-                        <option value="BICYCLING">bike</option>
-                        <option value="TRANSIT">transit ride</option>
-                    </select>
-                    <span class="text">of</span>
-                    <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
-                    <input id="search-within-time" type="button" value="Go">
-                </div>
+                        <div>
+                          <input id="show-listings" type="button" value="Show Foodbanks">
+                          <input id="hide-listings" type="button" value="Hide Foodbanks">
+                          </div>
+                        <div class="hideme">
+                          <input class="hideme" id="zoom-to-area-text" type="text" placeholder="Enter your favorite area!">
+                          <input class="hideme" id="zoom-to-area" type="button" value="Zoom">
+                        </div>
+                      <hr>
+                        <div>
+                          <span class="text"> Within </span>
+                          <select id="max-duration">
+                            <option value="10">10 min</option>
+                            <option value="15">15 min</option>
+                            <option value="30">30 min</option>
+                            <option value="60">1 hour</option>
+                          </select>
+                          <select id="mode">
+                            <option value="DRIVING">drive</option>
+                            <option value="WALKING">walk</option>
+                            <option value="BICYCLING">bike</option>
+                            <option value="TRANSIT">transit ride</option>
+                          </select>
+                          <span class="text">of</span>
+                          <input id="search-within-time-text" type="text" placeholder="Ex: Google Office NYC or 75 9th Ave, New York, NY">
+                          <input id="search-within-time" type="button" value="Go">
+                        </div>
                 <a href="{% url 'login:donate_hack' %}"><button>Donate Hack</button></a>
                 <a href="{% url 'donate:show_all' %}"><button>Show All</button></a>
             </div><!-- end of option-box -->

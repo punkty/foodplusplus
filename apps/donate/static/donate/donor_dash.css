@@ -42,3 +42,7 @@ td,th {
     width: 72px;
     text-align: center;
 }
+
+.hideme {
+    display: none;
+}
